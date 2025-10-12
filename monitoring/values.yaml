@@ -34,8 +34,9 @@ grafana:
       datasources:
       - name: Prometheus
         type: prometheus
-        url: http://prometheus-server.prometheus.svc.cluster.local:80
+        url: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
         access: proxy
+        basicAuth: true
         isDefault: true
       - name: Loki
         type: loki
@@ -58,10 +59,44 @@ grafana:
   dashboardsConfigMaps:
     default: "grafana-dashboards"
 
-prometheus:
-  alertmanager:
+kube-prometheus-stack:
+  # all values are in https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+  crds:
+    enabled: true
+
+  grafana:
+    # we use upstream grafana helm chart, not the one from kube-prometheus-stack
     enabled: false
 
+  kubeProxy:
+    enabled: false
+  
+  prometheusOperator:
+    affinity: {}
+
+  prometheus:
+    enabled: true
+
+    service:
+      enabled: true
+      targetPort: 9090
+
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      annotations:
+        nginx.ingress.kubernetes.io/auth-type: basic
+        nginx.ingress.kubernetes.io/auth-secret: prom-secret
+        nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - admin'
+      hosts:
+      - "prometheus.berlin-united.com"
+      tls:
+        - secretName: tls-cert-prometheus
+          hosts:
+            - "prometheus.berlin-united.com"
+    prometheusSpec:
+      podMonitorSelectorNilUsesHelmValues: false
+      podMonitorSelector: {}
 loki:
   loki:
     auth_enabled: false
@@ -146,7 +181,6 @@ promtail:
       privileged: true
 
   podSecurityContext:
-    privileged: true
     runAsUser: 0
     runAsGroup: 0
   config:
