@@ -1,4 +1,9 @@
 redis:
-  architecture: standalone
   auth:
+    enabled: false
+  
+  metrics:
+    enabled: true
+
+  persistence:
     enabled: false

@@ -12,3 +12,6 @@ If you want to check if the django wrote the cache you have to
 SELECT 1 
 KEYS *
 ```
+
+## Testing
+helm upgrade -f redis/values.yaml myredis ./redis/

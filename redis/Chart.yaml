@@ -7,5 +7,5 @@ appVersion: 1.0.0
 
 dependencies:
   - name: redis
-    repository: registry-1.docker.io/bitnamicharts/redis
-    version: 21.0.2
+    repository: registry-1.docker.io/cloudpirates/redis
+    version: 0.6.3
