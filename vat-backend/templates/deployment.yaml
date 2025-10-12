@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vat-backend 
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicas }}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
