@@ -1,0 +1,20 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mlflow-postgres
+spec:
+  instances: 1
+
+  storage:
+    # does not really matter since our default storage class cant limit it
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: mlflow
+      owner: mlflow
+      secret:
+        name: mlflow-postgresql
+
+  monitoring:
+    enablePodMonitor: true

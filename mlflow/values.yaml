@@ -1,52 +1,29 @@
 mlflow:
-  global:
-    storageClass: local-path
-
-  tracking:
-    resources:
-      requests:
-        cpu: 0.5
-        memory: 1Gi
-      limits:
-        cpu: 2
-        memory: 2Gi
-
-    auth:
-      enabled: false
-      existingSecret: mlflow-secret
-      existingSecretUserKey: mlflowuser
-      existingSecretPasswordKey: password
-
-    service:
-      type: ClusterIP
-
-    ingress:
-      enabled: false
-
-    metrics:
-      enabled: false
-      serviceMonitor:
-        enabled: false
-
-  run:
-    enabled: false
-
-  postgresql:
-    enabled: true
-    primary:
-      service:
-        ports:
-          postgresql: 5333
-    volumePermissions:
+  backendStore:
+    postgres:
       enabled: true
-    auth:
-      existingSecret: mlflow-postgresql
+      host: mlflow-postgres-rw.mlflow.svc.cluster.local
+      port: 5432
+      database: mlflow
 
-  minio:
+    existingDatabaseSecret:
+      name: mlflow-postgresql
+      usernameKey: username
+      passwordKey: password
+
+  serviceMonitor:
     enabled: false
 
-  externalS3:
-    host: minio.berlin-united.com
-    existingSecret: "minio-secret-mlflow"
-    existingSecretAccessKeyIDKey: "accessKeyID"
-    existingSecretKeySecretKey: "accessKeySecret"
+  artifactRoot:
+    s3:
+      enabled: true
+      bucket: mlflow
+      existingSecret:
+        name: "mlflow-minio"
+        # -- This is for setting up the key for AWS_ACCESS_KEY_ID secret. If it's set, awsAccessKeyId will be ignored.
+        keyOfAccessKeyId: "accessKeyID"
+        # -- This is for setting up the key for AWS_SECRET_ACCESS_KEY secret. If it's set, awsSecretAccessKey will be ignored.
+        keyOfSecretAccessKey: "accessKeySecret"
+
+  extraEnvVars:
+    MLFLOW_S3_ENDPOINT_URL: minio.berlin-united.com

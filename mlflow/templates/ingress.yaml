@@ -6,7 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "2000m"
     nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-secret: mlflow-basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - admin'
 spec:
   ingressClassName: nginx
@@ -18,7 +18,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: mlflow-tracking
+                name: mlflow
                 port:
                   number: 80
   tls:

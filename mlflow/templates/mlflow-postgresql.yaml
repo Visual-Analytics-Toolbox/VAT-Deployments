@@ -16,4 +16,4 @@ spec:
         property: password
     - extract:
         key: MlflowPostgresSecret
-        property: postgres-password
+        property: username
