@@ -1,0 +1,10 @@
+image:
+  name: ghcr.io/berlinunited/django_backend
+  tag: latest
+
+replicas: 1
+
+env:
+  db_name: vat
+  db_user: naoth
+  db_host: vat-postgres-rw.vat-backend.svc.cluster.local

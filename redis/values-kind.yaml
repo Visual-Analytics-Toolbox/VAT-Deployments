@@ -1,0 +1,9 @@
+redis:
+  auth:
+    enabled: false
+  
+  metrics:
+    enabled: false
+
+  persistence:
+    enabled: false
