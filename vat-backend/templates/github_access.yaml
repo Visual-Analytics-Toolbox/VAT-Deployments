@@ -1,4 +1,5 @@
 # https://external-secrets.io/latest/guides/common-k8s-secret-types/
+{{- if not .Values.is_dev }}
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
@@ -19,3 +20,4 @@ spec:
   dataFrom:
   - extract:
       key: GithubRegistry
+{{ end }}
