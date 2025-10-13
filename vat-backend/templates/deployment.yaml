@@ -25,16 +25,16 @@ spec:
         - name: USE_POSTGRES
           value: "true"
         - name: VAT_POSTGRES_DB
-          value: "vat"
+          value: {{ .Values.env.db_name }}
         - name: VAT_POSTGRES_USER
-          value: "naoth"
+          value: {{ .Values.env.db_user }}
         - name: VAT_POSTGRES_PASS
           valueFrom:
             secretKeyRef:
               name: postgres-secret
               key: "password"
         - name: VAT_POSTGRES_HOST
-          value: "postgres-postgresql.postgres.svc.cluster.local"
+          value: {{ .Values.env.db_host }}
         - name: VAT_POSTGRES_PORT
           value: "5432"
       containers:
@@ -56,16 +56,16 @@ spec:
         - name: USE_POSTGRES
           value: "true"
         - name: VAT_POSTGRES_DB
-          value: "vat"
+          value: {{ .Values.env.db_name }}
         - name: VAT_POSTGRES_USER
-          value: "naoth"
+          value: {{ .Values.env.db_user }}
         - name: VAT_POSTGRES_PASS
           valueFrom:
             secretKeyRef:
               name: postgres-secret
               key: "password"
         - name: VAT_POSTGRES_HOST
-          value: "postgres-postgresql.postgres.svc.cluster.local"
+          value: {{ .Values.env.db_host }}
         - name: VAT_POSTGRES_PORT
           value: "5432"
         volumeMounts:

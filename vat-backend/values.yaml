@@ -3,3 +3,8 @@ image:
   tag: latest
 
 replicas: 2
+
+env:
+  db_name: vat
+  db_user: naoth
+  db_host: postgres-postgresql.postgres.svc.cluster.local
