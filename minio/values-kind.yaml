@@ -1,3 +1,4 @@
+is_dev: true
 minio:
   replicas: 2
   pools: 1

@@ -4,6 +4,8 @@ image:
 
 replicas: 1
 
+is_dev: true
+
 env:
   db_name: vat
   db_user: naoth

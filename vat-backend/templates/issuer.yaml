@@ -1,4 +1,5 @@
 # https://github.com/vadimkim/cert-manager-webhook-hetzner
+{{- if not .Values.is_dev }}
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -20,3 +21,4 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-token
             key: DATA
+{{ end }}
