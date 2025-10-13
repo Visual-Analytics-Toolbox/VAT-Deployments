@@ -1,0 +1,19 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: vat-postgres
+spec:
+  instances: 1
+
+  storage:
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: vat
+      owner: naoth
+      secret:
+        name: postgres-secret
+
+  monitoring:
+    enablePodMonitor: true
