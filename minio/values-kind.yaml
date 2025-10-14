@@ -17,5 +17,4 @@ minio:
   consoleIngress:
     enabled: false
 
-
   existingSecret: "minio-secret"

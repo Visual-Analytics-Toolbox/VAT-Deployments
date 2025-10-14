@@ -10,3 +10,11 @@ env:
   db_name: vat
   db_user: naoth
   db_host: vat-postgres-rw.vat-backend.svc.cluster.local
+
+
+requests:
+  memory: "4Gi"
+  cpu: "4"
+limits:
+  memory: "6Gi"
+  cpu: "6"
