@@ -1,8 +1,31 @@
-global:
-  pgConfig:
-    host: "labelstudio-postgres-rw.labelstudio.svc.cluster.local"
-    dbName: "labelstudio"
-    userName: "labelstudio"
-    password:
-      secretName: "labelstudio-postgresql"
-      secretKey: "password"
+label-studio:
+  global:
+    pgConfig:
+      host: "labelstudio-postgres-rw.labelstudio.svc.cluster.local"
+      dbName: "labelstudio"
+      userName: "labelstudio"
+      password:
+        secretName: "labelstudio-postgresql"
+        secretKey: "password"
+
+
+    extraEnvironmentVars:
+      LABEL_STUDIO_HOST: https://labelstudio.berlin-united.com
+  app:
+    ingress:
+      enabled: true
+      className: nginx
+      host: "labelstudio.berlin-united.com"
+      path: /
+      tls:
+        - secretName: tls-cert-labelstudio
+          hosts:
+            - labelstudio.berlin-united.com
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "2000m"
+        nginx.ingress.kubernetes.io/auth-type: basic
+        nginx.ingress.kubernetes.io/auth-secret: mlflow-basic-auth
+        nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - admin'
+
+  postgresql:
+    enabled: false
