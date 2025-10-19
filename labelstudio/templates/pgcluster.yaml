@@ -1,0 +1,20 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: labelstudio-postgres
+spec:
+  instances: 1
+
+  storage:
+    # does not really matter since our default storage class cant limit it
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: labelstudio
+      owner: labelstudio
+      secret:
+        name: labelstudio-postgresql
+
+  monitoring:
+    enablePodMonitor: true
