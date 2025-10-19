@@ -1,0 +1,8 @@
+global:
+  pgConfig:
+    host: "labelstudio-postgres-rw.labelstudio.svc.cluster.local"
+    dbName: "labelstudio"
+    userName: "labelstudio"
+    password:
+      secretName: "labelstudio-postgresql"
+      secretKey: "password"

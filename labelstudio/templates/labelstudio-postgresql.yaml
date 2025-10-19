@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: labelstudio-postgresql
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: my-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+  dataFrom:
+    - extract:
+        key: LabelstudioPostgresSecret
+        property: password
+    - extract:
+        key: LabelstudioPostgresSecret
+        property: username
