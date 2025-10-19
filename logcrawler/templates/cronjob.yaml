@@ -4,8 +4,10 @@ metadata:
   name: logcrawler
 spec:
   schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 0
       template:
         spec:
           containers:
@@ -25,7 +27,7 @@ spec:
             volumeMounts:
             - name: replmount
               mountPath: /mnt/repl
-          restartPolicy: OnFailure
+          restartPolicy: Never
           imagePullSecrets:
           - name: github-access
           volumes:
