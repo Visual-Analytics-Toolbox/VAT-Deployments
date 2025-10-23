@@ -20,7 +20,7 @@ spec:
         - /bin/sh
         - -c
         - |
-          python manage.py migrate
+          uv run manage.py migrate
         env:
         - name: USE_POSTGRES
           value: "true"
