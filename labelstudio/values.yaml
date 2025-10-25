@@ -8,9 +8,19 @@ label-studio:
         secretName: "labelstudio-postgresql"
         secretKey: "password"
 
+    imagePullSecrets:
+      - name: github-access
+
+    image:
+      registry: ghcr.io
+      repository: visual-analytics-toolbox/vat-labelstudio
+      tag: autologin_vat_instance
+      
 
     extraEnvironmentVars:
       LABEL_STUDIO_HOST: https://labelstudio.berlin-united.com
+      LABEL_STUDIO_USERNAME: email@example.com
+
   app:
     ingress:
       enabled: true
