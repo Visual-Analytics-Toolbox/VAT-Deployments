@@ -11,7 +11,18 @@ keycloakx:
     - "--http-port=8080"
     - "--hostname-strict=false"
     - "--verbose"
+    - "--log-level=INFO"
 
+  database:
+    vendor: postgres
+    port: 5432
+    database: "keycloak"
+    hostname: keycloak-postgres-rw.keycloak.svc.cluster.local
+    username: keycloak
+
+  dbchecker:
+    enabled: true
+    
   ingress:
     enabled: true
     ingressClassName: "nginx"
@@ -31,9 +42,3 @@ keycloakx:
   extraEnvFrom: |
     - secretRef:
         name: keycloak-envs
-
-  extraEnv: |
-    - name: KC_DB_USERNAME
-      value: keycloak
-    - name: KC_DATABASE_URL
-      value: keycloak-postgres-rw.keycloak.svc.cluster.local

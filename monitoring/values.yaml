@@ -20,11 +20,6 @@ grafana:
     enabled: true
     type: "pvc"
 
-  admin:
-    existingSecret: grafana-secret
-    userKey: username
-    passwordKey: password
-
   initChownData:
     enabled: false
 
@@ -62,6 +57,33 @@ grafana:
   dashboardsConfigMaps:
     default: "grafana-dashboards"
 
+  assertNoLeakedSecrets: false
+  grafana.ini:
+    server:
+      root_url: https://grafana.berlin-united.com/
+    auth:
+      disable_login_form: false
+      oauth_allow_insecure_email_lookup: true
+    auth.generic_oauth:
+      verbose_logging: true
+      enabled: true
+      name: Keycloak
+      allow_sign_up: true
+      client_id: berlin-united
+      client_secret: NyM1HIqX0FZT1AkHASvCGrzEQbIG0ldm
+      scopes: openid email profile offline_access roles
+      # auth_url must be accessible from the user's browser
+      auth_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/auth
+      # token_url and api_url are server-to-server communications
+      token_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/token
+      api_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/userinfo
+      role_attribute_path: contains(realm_access.roles[*], 'admin') && 'Admin' || contains(realm_access.roles[*], 'editor') && 'Editor' || 'Viewer'
+      login_attribute_path: preferred_username
+      auto_assign_org_role: Admin
+      name_attribute_path: name
+      email_attribute_path: email
+      skip_org_role_sync: false
+      allow_assign_grafana_admin: true
 kube-prometheus-stack:
   # all values are in https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
   crds:
