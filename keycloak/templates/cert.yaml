@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-keycloak
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-keycloak
+  duration: 2160h
+  renewBefore: 360h
+  commonName: keycloak.berlin-united.com
+  dnsNames:
+    - keycloak.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-keycloak
+    kind: Issuer

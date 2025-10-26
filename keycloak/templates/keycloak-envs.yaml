@@ -1,0 +1,31 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: keycloak-envs
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: my-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+  dataFrom:
+    - extract:
+        key: KeycloakEnvs
+        property: password
+    - extract:
+        key: KeycloakEnvs
+        property: username
+    - extract:
+        key: KeycloakEnvs
+        property: KC_BOOTSTRAP_ADMIN_USERNAME
+    - extract:
+        key: KeycloakEnvs
+        property: KC_BOOTSTRAP_ADMIN_PASSWORD
+    - extract:
+        key: KeycloakEnvs
+        property: KC_DB_PASSWORD
+    - extract:
+        key: KeycloakEnvs
+        property: KC_DATABASE

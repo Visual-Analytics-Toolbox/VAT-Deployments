@@ -1,0 +1,39 @@
+keycloakx:
+  proxy:
+    enabled: true
+    mode: "xforwarded"
+    http:
+      enabled: true
+
+  command:
+    - "/opt/keycloak/bin/kc.sh"
+    - "start"
+    - "--http-port=8080"
+    - "--hostname-strict=false"
+    - "--verbose"
+
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    tls:
+      - hosts: 
+          - "keycloak.berlin-united.com"
+        secretName: tls-cert-keycloak
+    rules:
+      - host: "keycloak.berlin-united.com"
+        paths: 
+          - path: "/"
+            pathType: ImplementationSpecific
+
+  serviceMonitor:
+    enabled: true
+
+  extraEnvFrom: |
+    - secretRef:
+        name: keycloak-envs
+
+  extraEnv: |
+    - name: KC_DB_USERNAME
+      value: keycloak
+    - name: KC_DATABASE_URL
+      value: keycloak-postgres-rw.keycloak.svc.cluster.local
