@@ -24,7 +24,10 @@ grafana:
     existingSecret: grafana-secret
     userKey: username
     passwordKey: password
-  
+
+  initChownData:
+    enabled: false
+
   plugins:
   - yesoreyeram-infinity-datasource
 
