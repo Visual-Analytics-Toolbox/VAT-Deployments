@@ -1,0 +1,41 @@
+oauth2-proxy:
+
+  clientID: "oauth2-proxy"
+  clientSecret: "fj26bgnqNszz5mgmOCabNuNwfYzqkpPT"
+
+  # Cookie secret
+  # Create a new secret with the following command
+  # openssl rand -base64 32 | head -c 32 | base64
+  cookieSecret: "bG5pRDBvL0VaWis3dksrZ05vYnJLclRFb2VNcVZJYkg="
+  # The name of the cookie that oauth2-proxy will create
+  # If left empty, it will default to the release name
+  cookieName: "oauth2-proxy"
+
+  # Config file
+  configFile: |
+    provider="keycloak-oidc"
+    provider_display_name="Keycloak"
+    redirect_url="https://oauth2-proxy.berlin-united.com/oauth2/callback"
+    oidc_issuer_url="https://keycloak.berlin-united.com/auth/realms/berlin-united"
+    code_challenge_method="S256"
+    ssl_insecure_skip_verify=true
+    http_address="0.0.0.0:4180"
+    upstreams="file:///dev/null"
+    email_domains=["*"]
+    cookie_domains=["berlin-united"]
+    cookie_secure=false
+    scope="openid"
+    whitelist_domains=[".berlin-united"]
+    insecure_oidc_allow_unverified_email="true"
+
+  ingress:
+    enabled: true
+    className: "nginx"
+    pathType: Prefix
+    path: /oauth2
+    hosts:
+    - oauth2-proxy.berlin-united.com
+    tls:
+    - hosts:
+        - oauth2-proxy.berlin-united.com
+      secretName: tls-cert-oauth

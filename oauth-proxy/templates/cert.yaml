@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-oauth
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-oauth
+  duration: 2160h
+  renewBefore: 360h
+  commonName: oauth2-proxy.berlin-united.com
+  dnsNames:
+    - oauth2-proxy.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-oauth
+    kind: Issuer
