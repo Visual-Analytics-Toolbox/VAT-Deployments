@@ -34,7 +34,7 @@ label-studio:
       annotations:
         nginx.ingress.kubernetes.io/auth-signin: https://oauth2-proxy.berlin-united.com/oauth2/start?rd=https://$host$request_uri
         nginx.ingress.kubernetes.io/auth-url: http://oauth-proxy-oauth2-proxy.oauth-proxy.svc.cluster.local/oauth2/auth
-        nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
         nginx.ingress.kubernetes.io/auth-response-headers: Authorization
 
   postgresql:
