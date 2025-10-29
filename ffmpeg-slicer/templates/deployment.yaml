@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ffmpeg
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: ffmpeg
+  template:
+    metadata:
+      labels:
+        app: ffmpeg
+    spec:
+      imagePullSecrets:
+      - name: github-access
+      containers:
+      - name: ffmpeg-slicer
+        image: ghcr.io/visual-analytics-toolbox/ffmpeg_slicer:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: replmount
+          mountPath: /mnt/repl
+        - name: videomount
+          mountPath: /mnt/videos
+        resources:
+          requests:
+            memory: "800Mi"
+            cpu: "1"
+          limits:
+            memory: "1000Mi"
+            cpu: "2"
+        env:
+        - name: OUTPUT_PATH
+          value: "/mnt/videos/sliced_videos"
+      volumes:
+      - name: replmount
+        hostPath:
+          path: /mnt/repl
+      - name: videomount
+        hostPath:
+          path: /mnt/videos
+      

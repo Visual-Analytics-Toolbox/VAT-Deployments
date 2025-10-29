@@ -77,6 +77,8 @@ spec:
           mountPath: /mnt/models
         - name: datasetmount
           mountPath: /mnt/datasets
+        - name: videomount
+          mountPath: /mnt/videos
       imagePullSecrets:
       - name: github-access
       volumes:
@@ -85,4 +87,7 @@ spec:
           path: /mnt/models
       - name: datasetmount
         hostPath:
-          path: /mnt/datasets    
+          path: /mnt/datasets
+      - name: videomount
+        hostPath:
+          path: /mnt/videos
