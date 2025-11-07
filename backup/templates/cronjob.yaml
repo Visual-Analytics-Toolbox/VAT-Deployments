@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: backup
-            image: ghcr.io/berlinunited/backup:latest
+            image: ghcr.io/visual-analytics-toolbox/backup:latest
             imagePullPolicy: Always
             command: ["python"]
             args: 
