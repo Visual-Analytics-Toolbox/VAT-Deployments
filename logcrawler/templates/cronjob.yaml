@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: logcrawler
 spec:
-  schedule: "5 * * * *"
+  schedule: "5 3 * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
