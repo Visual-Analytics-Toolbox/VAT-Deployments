@@ -8,6 +8,7 @@ env:
   db_name: vat
   db_user: naoth
   db_host: postgres-postgresql.postgres.svc.cluster.local
+  db_host2: vat-postgres-rw.vat-backend.svc.cluster.local
 
 
 requests:

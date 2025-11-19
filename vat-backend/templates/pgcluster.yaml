@@ -17,3 +17,7 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+  postgresql:
+    pg_hba:
+      - host    vat    naoth    all    scram-sha-256
