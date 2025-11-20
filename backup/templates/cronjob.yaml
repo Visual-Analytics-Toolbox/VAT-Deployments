@@ -22,9 +22,6 @@ spec:
             - "-f"
             - "-a"
             - "-g"
-            - "-t"
-            - "image_naoimage" 
-            - "annotation_annotation"
             - "-o"
             - "/replbackup"
             env:
