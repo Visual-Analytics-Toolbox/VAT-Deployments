@@ -35,7 +35,7 @@ spec:
                   name: postgres-secret
                   key: "password"
             - name: VAT_POSTGRES_HOST
-              value: "postgres-postgresql.postgres.svc.cluster.local"
+              value: "vat-postgres-rw.vat-backend.svc.cluster.local"
             - name: VAT_POSTGRES_PORT
               value: "5432"
             volumeMounts:
