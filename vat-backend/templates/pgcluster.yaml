@@ -21,3 +21,6 @@ spec:
   postgresql:
     pg_hba:
       - host    vat    naoth    all    scram-sha-256
+    parameters:
+      shared_buffers: "4GB"  # Adjust based on your pod memory
+      effective_cache_size: "12GB" # Adjust based on your pod memory
