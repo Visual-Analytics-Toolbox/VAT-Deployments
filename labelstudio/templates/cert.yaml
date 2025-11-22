@@ -12,6 +12,6 @@ spec:
   dnsNames:
   - labelstudio.berlin-united.com
   issuerRef:
-    name: letsencrypt-prod-minio
+    name: letsencrypt-prod-labelstudio
     kind: Issuer
 {{ end }}
