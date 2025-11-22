@@ -24,6 +24,7 @@ data:
       geo $is_whitelisted  {
           default 1;
           141.20.0.0/16 0; # Whitelist entire 141.20.x.x range
+          172.18.0.0/16 0; # Whitelist internal ip range of uni
       }
 
       map $is_whitelisted  $limit_key {
