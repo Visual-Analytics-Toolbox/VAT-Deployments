@@ -14,4 +14,20 @@ spec:
   issuerRef:
     name: letsencrypt-prod-labelstudio
     kind: Issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-labelstudio-api
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-labelstudio-api
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  commonName: labelstudio-api.berlin-united.com
+  dnsNames:
+  - labelstudio-api.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-labelstudio-api
+    kind: Issuer
 {{ end }}

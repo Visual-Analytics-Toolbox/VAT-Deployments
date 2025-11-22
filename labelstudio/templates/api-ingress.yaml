@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # Explicitly turn off the external authentication for API
+    nginx.ingress.kubernetes.io/auth-enabled: "false"
+    nginx.ingress.kubernetes.io/priority: "10"
+  labels:
+    app.kubernetes.io/instance: labelstudio
+    app.kubernetes.io/name: ls-app
+  name: labelstudio-ls-app-api
+  namespace: labelstudio
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: labelstudio-api.berlin-united.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: labelstudio-ls-app
+                port:
+                  number: 80
+            path: /api
+            pathType: Prefix
+  tls:
+  - hosts:
+    - "labelstudio-api.berlin-united.com"
+    secretName: tls-cert-labelstudio-api

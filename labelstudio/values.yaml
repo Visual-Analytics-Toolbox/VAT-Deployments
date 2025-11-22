@@ -22,6 +22,7 @@ label-studio:
       LABEL_STUDIO_USERNAME: email@example.com
 
   app:
+    # there is another ingress for /api
     ingress:
       enabled: true
       className: nginx
