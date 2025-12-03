@@ -41,6 +41,9 @@ alloy:
             username = env("TEMPO_USER")
             password = env("GRAFANA_API_KEY")
         }
+        livedebugging {
+          enabled = true
+        }
 
       # -- Name of existing ConfigMap to use. Used when create is false.
 
