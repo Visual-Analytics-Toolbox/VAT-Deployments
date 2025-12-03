@@ -1,0 +1,13 @@
+beyla:
+  config:
+    data:
+      # Contents of the actual Beyla configuration file
+      discovery:
+        instrument:
+          - k8s_namespace: vat-backend
+      routes:
+        unmatched: heuristic
+
+  env:
+    BEYLA_TRACE_PRINTER: "text"
+    BEYLA_LOG_LEVEL: "debug"
