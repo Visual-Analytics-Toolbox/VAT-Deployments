@@ -27,3 +27,5 @@ mlflow:
 
   extraEnvVars:
     MLFLOW_S3_ENDPOINT_URL: minio.berlin-united.com
+    MLFLOW_SERVER_CORS_ALLOWED_ORIGINS: https://mlflow.berlin-united.com
+    MLFLOW_SERVER_ALLOWED_HOSTS: mlflow.berlin-united.com
