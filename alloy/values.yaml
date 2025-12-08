@@ -35,15 +35,12 @@ alloy:
         }
 
         otelcol.exporter.otlp "tempo" {
-            client {
-                endpoint = env("TEMPO_ENDPOINT")
-                auth     = otelcol.auth.basic.creds.handler
+          client {
+            endpoint = "http://tempo.tempo.svc.cluster.local:4317"
+            tls {
+              insecure = true
             }
-        }
-
-        otelcol.auth.basic "creds" {
-            username = env("TEMPO_USER")
-            password = env("GRAFANA_API_KEY")
+          }
         }
 
         livedebugging {
