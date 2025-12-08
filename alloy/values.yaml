@@ -12,37 +12,7 @@ alloy:
       # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
       content: |-
         // Write your Alloy config here:
-        beyla.ebpf "default" {
-          debug = true
-          trace_printer = "json"
-          enforce_sys_caps = true
-          attributes {
-            kubernetes {
-              enable = "true"
-            }
-          }
 
-          discovery {
-            services {
-              kubernetes {
-                namespace = "vat-backend"
-              }
-            }
-          }
-          traces {
-            instrumentations = ["http", "grpc", "sql"]
-            sampler {
-              name = "traceidratio"
-              arg = "1.0"  // Global 10% sampling rate for all traces
-            }
-          }
-          routes {
-            unmatched = "heuristic"
-          }
-          output {
-            traces = [otelcol.processor.batch.default.input]
-          }
-        }
 
         logging {
           level = "info"
