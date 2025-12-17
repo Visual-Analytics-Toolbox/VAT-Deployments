@@ -1,0 +1,17 @@
+renovate:
+  cronjob:
+    # Schedule how often Renovate should run (e.g., every hour)
+    schedule: "0 * * * *"
+
+  renovate:
+    config: |
+      {
+        "platform": "github",
+        "autodiscover": true,
+        "autodiscoverFilter": ["Visual-Analytics-Toolbox/*", "!BerlinUnited/*"],
+        "onboarding": true,
+        "baseDir": "/tmp/renovate",
+        "rangeStrategy": "update-lockfile",
+      }
+
+  existingSecret: "renovate-secrets"
