@@ -1,5 +1,5 @@
 apiVersion: v2
-name: redis
+name: CNPG
 description: Berlin United Postgres Operator
 type: application
 version: 0.1.0
@@ -7,6 +7,6 @@ appVersion: 1.0.0
 
 dependencies:
   - name: cloudnative-pg
-    repository: https://cloudnative-pg.github.io/charts/cnpg
+    repository: https://cloudnative-pg.github.io/charts/
     version: 0.26.0
 
