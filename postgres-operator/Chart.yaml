@@ -7,6 +7,6 @@ appVersion: 1.0.0
 
 dependencies:
   - name: cloudnative-pg
-    repository: https://cloudnative-pg.github.io/charts/cnpg/cloudnative-pg
+    repository: https://cloudnative-pg.github.io/charts/cnpg
     version: 0.26.0
 
