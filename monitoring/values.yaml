@@ -59,6 +59,9 @@ grafana:
 
   assertNoLeakedSecrets: false
   grafana.ini:
+    feature_toggles:
+      provisioning: true
+      kubernetesDashboards: true
     server:
       root_url: https://grafana.berlin-united.com/
     auth:
