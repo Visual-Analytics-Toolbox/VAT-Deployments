@@ -12,5 +12,8 @@ spec:
     deletionPolicy: "Retain"
   dataFrom:
   - extract:
+      conversionStrategy: Default
+      decodingStrategy: None
       key: CloudflareToken
+      metadataPolicy: None
       property: DATA
