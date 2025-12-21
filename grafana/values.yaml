@@ -40,6 +40,9 @@ grafana:
         type: loki
         url: http://monitoring-loki.monitoring.svc.cluster.local:3100
         access: proxy
+      - name: Tempo
+        type: tempo
+        url: http://tempo.tempo.svc.cluster.local:3200
 
   assertNoLeakedSecrets: false
   grafana.ini:
