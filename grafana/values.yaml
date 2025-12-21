@@ -1,0 +1,89 @@
+grafana:
+  replicas: 1
+  resources:
+    limits:
+      cpu: "1"
+      memory: "1Gi"
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - "grafana.berlin-united.com"
+    tls:
+      - secretName: tls-cert-grafana
+        hosts:
+          - "grafana.berlin-united.com"
+  persistence: 
+    enabled: true
+    type: "pvc"
+
+  initChownData:
+    enabled: false
+
+  plugins:
+  - yesoreyeram-infinity-datasource
+
+  datasources:
+     datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        access: proxy
+        basicAuth: true
+        isDefault: true
+      - name: Loki
+        type: loki
+        url: http://monitoring-loki.monitoring.svc.cluster.local:3100
+        access: proxy
+
+  dashboardProviders:
+   dashboardproviders.yaml:
+     apiVersion: 1
+     providers:
+     - name: 'default'
+       orgId: 1
+       folder: ''
+       type: file
+       disableDeletion: false
+       editable: true
+       options:
+         path: /var/lib/grafana/dashboards/default
+   
+  dashboardsConfigMaps:
+    default: "grafana-dashboards"
+
+  assertNoLeakedSecrets: false
+  grafana.ini:
+    feature_toggles:
+      provisioning: true
+      kubernetesDashboards: true
+    server:
+      root_url: https://grafana.berlin-united.com/
+    auth:
+      disable_login_form: false
+      oauth_allow_insecure_email_lookup: true
+    auth.generic_oauth:
+      verbose_logging: true
+      enabled: true
+      name: Keycloak
+      allow_sign_up: true
+      client_id: berlin-united
+      client_secret: NyM1HIqX0FZT1AkHASvCGrzEQbIG0ldm
+      scopes: openid email profile offline_access roles
+      # auth_url must be accessible from the user's browser
+      auth_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/auth
+      # token_url and api_url are server-to-server communications
+      token_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/token
+      api_url: https://keycloak.berlin-united.com/auth/realms/berlin-united/protocol/openid-connect/userinfo
+      role_attribute_path: contains(realm_access.roles[*], 'admin') && 'Admin' || contains(realm_access.roles[*], 'editor') && 'Editor' || 'Viewer'
+      login_attribute_path: preferred_username
+      auto_assign_org_role: Admin
+      name_attribute_path: name
+      email_attribute_path: email
+      skip_org_role_sync: false
+      allow_assign_grafana_admin: true
