@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarqube
+  annotations:
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
+    path: sonarqube
+    targetRevision: HEAD
+    helm:
+      releaseName: sonarqube
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sonarqube
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
