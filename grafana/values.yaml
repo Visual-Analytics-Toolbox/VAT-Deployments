@@ -41,22 +41,6 @@ grafana:
         url: http://monitoring-loki.monitoring.svc.cluster.local:3100
         access: proxy
 
-  dashboardProviders:
-   dashboardproviders.yaml:
-     apiVersion: 1
-     providers:
-     - name: 'default'
-       orgId: 1
-       folder: ''
-       type: file
-       disableDeletion: false
-       editable: true
-       options:
-         path: /var/lib/grafana/dashboards/default
-   
-  dashboardsConfigMaps:
-    default: "grafana-dashboards"
-
   assertNoLeakedSecrets: false
   grafana.ini:
     feature_toggles:
