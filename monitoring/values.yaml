@@ -107,21 +107,4 @@ loki:
   bloomGateway:
     replicas: 0
 
-promtail:
-  initContainer:
-  - name: init
-    image: docker.io/busybox:1.37
-    imagePullPolicy: IfNotPresent
-    command:
-      - sh
-      - -c
-      - sysctl -w fs.inotify.max_user_instances=512
-    securityContext:
-      privileged: true
 
-  podSecurityContext:
-    runAsUser: 0
-    runAsGroup: 0
-  config:
-    clients:
-      - url: http://monitoring-loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push
