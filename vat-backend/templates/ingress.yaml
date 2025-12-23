@@ -63,6 +63,13 @@ spec:
                 name: vat-svc-backend
                 port:
                   number: 80  
+          - path: /static
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80 
   tls:
   - hosts:
     - "vat.berlin-united.com"
