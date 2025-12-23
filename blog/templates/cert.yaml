@@ -1,0 +1,17 @@
+{{- if not .Values.is_dev }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-blog
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-blog
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  commonName: blog.berlin-united.com
+  dnsNames:
+  - blog.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-blog
+    kind: Issuer
+{{ end }}
