@@ -18,7 +18,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: vat-svc-frontend
+                name: vat-frontend/vat-svc-frontend
                 port:
                   number: 80
           - path: /api
