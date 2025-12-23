@@ -28,6 +28,41 @@ spec:
                 name: vat-svc-backend
                 port:
                   number: 80
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80
+          - path: /schema
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80   
+          - path: /users
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80
+          - path: /_allauth
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80
+          - path: /accounts
+            pathType: Prefix
+            backend:
+              service:
+                name: vat-svc-backend
+                port:
+                  number: 80  
   tls:
   - hosts:
     - "vat.berlin-united.com"
