@@ -39,6 +39,7 @@ kube-prometheus-stack:
       podMonitorSelector: {}
       serviceMonitorSelectorNilUsesHelmValues: false
       serviceMonitorNamespaceSelector: {}
+      enableRemoteWriteReceiver: true
       retention: 5d
       storageSpec:
         volumeClaimTemplate:

@@ -30,11 +30,26 @@ alloy:
 
           output {
             traces = [otelcol.processor.batch.default.input]
+            metrics = [otelcol.processor.batch.default.input]
           }
         }
+
         otelcol.processor.batch "default" {
           output {
+            metrics = [otelcol.exporter.prometheus.default.input]
             traces  = [otelcol.exporter.otlp.tempo.input]
+            
+          }
+        }
+
+        otelcol.exporter.prometheus "default" {
+            forward_to = [prometheus.remote_write.default.receiver]
+        }
+
+
+        prometheus.remote_write "default" {
+          endpoint {
+            url = "http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
           }
         }
 
