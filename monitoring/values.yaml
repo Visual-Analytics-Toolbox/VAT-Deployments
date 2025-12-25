@@ -39,6 +39,13 @@ kube-prometheus-stack:
       podMonitorSelector: {}
       serviceMonitorSelectorNilUsesHelmValues: false
       serviceMonitorNamespaceSelector: {}
+      retention: 5d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            resources:
+              requests:
+                storage: 20Gi
 
 
 loki:
