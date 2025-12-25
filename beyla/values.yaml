@@ -10,5 +10,4 @@ beyla:
 
   env:
     BEYLA_TRACE_PRINTER: "json"
-    BEYLA_LOG_LEVEL: "debug"
     OTEL_EXPORTER_OTLP_ENDPOINT: "http://alloy.alloy.svc.cluster.local:4318"
