@@ -120,4 +120,7 @@ loki:
   bloomGateway:
     replicas: 0
 
-
+prometheus-pushgateway:
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring
