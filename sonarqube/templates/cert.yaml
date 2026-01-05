@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-sonar
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-sonar
+  duration: 2160h
+  renewBefore: 360h
+  commonName: sonar.berlin-united.com
+  dnsNames:
+    - sonar.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-sonar
+    kind: Issuer

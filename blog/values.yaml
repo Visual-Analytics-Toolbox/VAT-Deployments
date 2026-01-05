@@ -1,0 +1,18 @@
+image:
+  name: ghcr.io/visual-analytics-toolbox/wagtail_blog
+  tag: latest
+
+replicas: 1
+
+env:
+  db_name: blog
+  db_user: naoth
+  db_host: blog-postgres-rw.blog.svc.cluster.local
+
+
+requests:
+  memory: "4Gi"
+  cpu: "10"
+limits:
+  memory: "6Gi"
+  cpu: "10"

@@ -1,5 +1,5 @@
 image:
-  name: ghcr.io/berlinunited/django_backend
+  name: ghcr.io/visual-analytics-toolbox/django_backend
   tag: latest
 
 replicas: 2

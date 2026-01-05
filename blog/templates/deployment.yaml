@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-backend 
+spec:
+  replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: blog-backend
+  template:
+    metadata:
+      labels:
+        app: blog-backend
+    spec:
+      initContainers:
+      - name: django-migrations
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        command: 
+        - /bin/sh
+        - -c
+        - |
+          uv run manage.py migrate
+        env:
+        - name: BLOG_POSTGRES_DB
+          value: {{ .Values.env.db_name }}
+        - name: BLOG_POSTGRES_USER
+          value: {{ .Values.env.db_user }}
+        - name: BLOG_POSTGRES_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "password"
+        - name: BLOG_POSTGRES_HOST
+          value: {{ .Values.env.db_host }}
+        - name: BLOG_POSTGRES_PORT
+          value: "5432"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "core.settings.production"
+      containers:
+      - name: backend
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        resources:
+          requests:
+            memory: {{ .Values.requests.memory }}
+            cpu: {{ .Values.requests.cpu }}
+          limits:
+            memory: {{ .Values.limits.memory }}
+            cpu: {{ .Values.limits.cpu }}
+        env:
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secret
+              key: "secretkey"
+        - name: BLOG_POSTGRES_DB
+          value: {{ .Values.env.db_name }}
+        - name: BLOG_POSTGRES_USER
+          value: {{ .Values.env.db_user }}
+        - name: BLOG_POSTGRES_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "password"
+        - name: BLOG_POSTGRES_HOST
+          value: {{ .Values.env.db_host }}
+        - name: BLOG_POSTGRES_PORT
+          value: "5432"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "core.settings.production"
+      imagePullSecrets:
+      - name: github-access

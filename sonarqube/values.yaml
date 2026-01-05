@@ -1,0 +1,22 @@
+sonarqube:
+  monitoringPasscode: passcode
+  community:
+    enabled: true
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    # Used to create an Ingress record.
+    hosts:
+      - name: "sonar.berlin-united.com"
+        # Different clouds or configurations might need /* as the default path
+        path: /
+        # For additional control over serviceName and servicePort
+        # serviceName: someService
+        # servicePort: somePort
+    annotations: 
+      nginx.ingress.kubernetes.io/proxy-body-size: "64m"
+    tls:
+    - hosts:
+      - "sonar.berlin-united.com"
+      secretName: tls-cert-sonar

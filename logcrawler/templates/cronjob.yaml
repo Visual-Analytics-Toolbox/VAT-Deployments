@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
           - name: logcrawler
-            image: ghcr.io/berlinunited/logcrawler:logcrawler_rewrite
+            image: ghcr.io/visual-analytics-toolbox/logcrawler:latest
             imagePullPolicy: Always
             env:
             - name: VAT_LOG_ROOT

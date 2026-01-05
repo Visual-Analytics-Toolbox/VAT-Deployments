@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vat-blog
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: vat-blog
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "700m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "blog.berlin-united.com"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: blog-svc
+                port:
+                  number: 80
+  tls:
+  - hosts:
+    - "blog.berlin-united.com"
+    secretName: tls-cert-blog

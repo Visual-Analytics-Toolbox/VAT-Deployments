@@ -2,16 +2,14 @@ keycloakx:
   proxy:
     enabled: true
     mode: "xforwarded"
-    http:
-      enabled: true
 
   command:
     - "/opt/keycloak/bin/kc.sh"
     - "start"
     - "--http-port=8080"
-    - "--hostname-strict=false"
     - "--verbose"
     - "--log-level=INFO"
+    - "--hostname=keycloak.berlin-united.com"
 
   database:
     vendor: postgres
@@ -35,6 +33,14 @@ keycloakx:
         paths: 
           - path: "/"
             pathType: ImplementationSpecific
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      # These are critical:
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-Port 443;
 
   serviceMonitor:
     enabled: true

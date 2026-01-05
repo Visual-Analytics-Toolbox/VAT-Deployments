@@ -1,7 +1,8 @@
-apiVersion: external-secrets.io/v1beta1
+{{- if not .Values.is_dev }}
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: grafana-secret
+  name: cloudflare-token
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
@@ -11,9 +12,7 @@ spec:
     creationPolicy: Owner
     deletionPolicy: "Retain"
   dataFrom:
-    - extract:
-        key: GrafanaSecret
-        property: username
-    - extract:
-        key: GrafanaSecret
-        property: password
+  - extract:
+      key: CloudflareToken
+      property: DATA
+{{ end }}

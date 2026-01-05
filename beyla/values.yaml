@@ -7,8 +7,10 @@ beyla:
           - k8s_namespace: vat-backend
       routes:
         unmatched: heuristic
+      otel_metrics_export:
+        endpoint: http://alloy.alloy.svc.cluster.local:4318
+      otel_traces_export:
+        endpoint: http://alloy.alloy.svc.cluster.local:4318
 
   env:
     BEYLA_TRACE_PRINTER: "json"
-    BEYLA_LOG_LEVEL: "debug"
-    OTEL_EXPORTER_OTLP_ENDPOINT: "http://alloy.alloy.svc.cluster.local:4318"

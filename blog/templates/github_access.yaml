@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: github-access
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore  
+    name: my-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+    template:
+      type: kubernetes.io/dockerconfigjson
+      engineVersion: v2
+      data:
+        .dockerconfigjson: "{{ `{{ .token }}` }}"
+  dataFrom:
+  - extract:
+      key: GithubRegistry
