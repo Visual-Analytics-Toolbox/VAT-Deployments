@@ -7,5 +7,5 @@ appVersion: 1.0.0
 
 dependencies:
   - name: docker-mailserver
-    repository: https://github.com/docker-mailserver/docker-mailserver-helm
+    repository: https://docker-mailserver.github.io/docker-mailserver-helm
     version: 5.1.1

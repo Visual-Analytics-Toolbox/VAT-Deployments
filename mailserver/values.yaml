@@ -1,0 +1,6 @@
+docker-mailserver:
+  certificate: tls-cert-mailserver
+
+  deployment:
+    env:
+      OVERRIDE_HOSTNAME: berlin-united.com       # You must OVERRIDE this!
