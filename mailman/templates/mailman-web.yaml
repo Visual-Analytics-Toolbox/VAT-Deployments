@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailman-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailman-web
+  template:
+    metadata:
+      labels:
+        app: mailman-web
+    spec:
+      containers:
+      - name: mailman-web
+        image: maxking/mailman-web:rolling
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          python3 manage.py migrate
+          python3 manage.py collectstatic --noinput
+          python3 manage.py runserver 0.0.0.0:8000
+        env:
+        - name: DATABASE_TYPE
+          value: "postgres"
+        - name: SERVE_FROM_DOMAIN
+          value: "maillist.berlin-united.com"
+        - name: UWSGI_STATIC_MAP
+          value: "/static=/opt/mailman-web-data/static"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "DATABASE_URL"
+        - name: MAILMAN_CORE_ENDPOINT
+          value: "http://mailman-core:8001"
+        - name: HYPERKITTY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "HYPERKITTY_API_KEY"
+        - name: MAILMAN_CORE_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "MAILMAN_CORE_USER"
+        - name: MAILMAN_CORE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "MAILMAN_CORE_PASSWORD"
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "SECRET_KEY"
+        - name: MAILMAN_ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "MAILMAN_ADMIN_EMAIL"
+        - name: MAILMAN_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "MAILMAN_ADMIN_USER"
+        ports:
+        - containerPort: 8000
+          name: http
+        - containerPort: 8080
+          name: uwsgi
+        volumeMounts:
+        - name: web-data
+          mountPath: /opt/mailman-web-data
+      volumes:
+      - name: web-data
+        persistentVolumeClaim:
+          claimName: mailman-web-pvc

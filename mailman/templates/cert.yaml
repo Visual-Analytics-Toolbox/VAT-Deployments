@@ -1,0 +1,17 @@
+{{- if not .Values.is_dev }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate-maillist
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: tls-cert-maillist
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  commonName: maillist.berlin-united.com
+  dnsNames:
+  - maillist.berlin-united.com
+  issuerRef:
+    name: letsencrypt-prod-maillist
+    kind: Issuer
+{{ end }}

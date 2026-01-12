@@ -1,0 +1,23 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mailman-postgres
+spec:
+  instances: 1
+
+  storage:
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: mailman
+      owner: naoth
+      secret:
+        name: postgres-secret
+
+  postgresql:
+    pg_hba:
+      - host    mailman    naoth    all    scram-sha-256
+    parameters:
+      shared_buffers: "2GB"  # Adjust based on your pod memory
+      effective_cache_size: "6GB" # Adjust based on your pod memory
