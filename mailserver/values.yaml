@@ -3,4 +3,4 @@ docker-mailserver:
 
   deployment:
     env:
-      OVERRIDE_HOSTNAME: berlin-united.com       # You must OVERRIDE this!
+      OVERRIDE_HOSTNAME: mail.berlin-united.com       # You must OVERRIDE this!
