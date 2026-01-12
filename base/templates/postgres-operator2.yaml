@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgres-operator2
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
+    path: postgres-operator
+    targetRevision: HEAD
+    helm:
+      releaseName: postgres-operator
+  destination:
+    name: hetzner-k8s
+    namespace: postgres-operator
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
