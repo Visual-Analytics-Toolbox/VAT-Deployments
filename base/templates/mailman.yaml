@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mailman
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
+    path: mailman
+    targetRevision: HEAD
+    helm:
+      releaseName: mailman
+      valueFiles:
+        - values.yaml
+  destination:
+    name: hetzner-k8s
+    namespace: mailman # has to be there because thats where the base application is
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

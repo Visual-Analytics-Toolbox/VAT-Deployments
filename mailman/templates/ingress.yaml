@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: maillist
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: mailman-web
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "maillist.berlin-united.com"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mailman-web
+                port:
+                  number: 80
+  tls:
+  - hosts:
+    - "maillist.berlin-united.com"
+    secretName: tls-cert-maillist

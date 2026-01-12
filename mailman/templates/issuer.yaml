@@ -1,0 +1,24 @@
+# https://github.com/vadimkim/cert-manager-webhook-hetzner
+{{- if not .Values.is_dev }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-prod-maillist
+  namespace: {{ .Values.namespace }}
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # ACME Email address
+    email: stella.a.schlotter@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - selector:
+        dnsNames:
+        - 'maillist.berlin-united.com'
+      dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-token
+            key: DATA
+{{ end }}
