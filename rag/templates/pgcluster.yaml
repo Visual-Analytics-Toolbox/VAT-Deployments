@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: vat-postgres
+spec:
+  instances: 1
+
+  storage:
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: vat
+      owner: naoth
+      secret:
+        name: postgres-secret
+
+  monitoring:
+    enablePodMonitor: true
+
+  postgresql:
+    pg_hba:
+      - host    vat    naoth    all    scram-sha-256
+    parameters:
+      shared_buffers: "4GB"  # Adjust based on your pod memory
+      effective_cache_size: "12GB" # Adjust based on your pod memory
