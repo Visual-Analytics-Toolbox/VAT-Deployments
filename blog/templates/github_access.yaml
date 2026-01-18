@@ -1,3 +1,5 @@
+# https://external-secrets.io/latest/guides/common-k8s-secret-types/
+{{- if not .Values.is_dev }}
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
@@ -5,7 +7,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore  
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
@@ -13,8 +15,9 @@ spec:
     template:
       type: kubernetes.io/dockerconfigjson
       engineVersion: v2
-      data:
-        .dockerconfigjson: "{{ `{{ .token }}` }}"
-  dataFrom:
-  - extract:
-      key: GithubRegistry
+
+  data:
+    - secretKey: .dockerconfigjson # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: GithubRegistry
+{{ end }}
