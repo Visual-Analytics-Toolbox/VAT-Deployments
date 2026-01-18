@@ -13,15 +13,7 @@ spec:
   storage:
     size: 6Gi
 
-  bootstrap:
-    initdb:
-      database: vat
-      owner: naoth
-      secret:
-        name: postgres-secret
 
-  monitoring:
-    enablePodMonitor: true
 
   postgresql:
     pg_hba:
