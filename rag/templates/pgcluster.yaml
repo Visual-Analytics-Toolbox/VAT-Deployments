@@ -4,6 +4,10 @@ metadata:
   name: rag-postgres
 spec:
   instances: 1
+  name: vat
+  owner: naoth
+  cluster:
+    name: rag-postgres
   extensions:
     - name: vector
   storage:
