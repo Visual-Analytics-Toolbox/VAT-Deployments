@@ -11,7 +11,7 @@ spec:
     helm:
       releaseName: nextcloud
   destination:
-    server: https://kubernetes.default.svc
+    name: hetzner-k8s
     namespace: nextcloud
   syncPolicy:
     automated: {}

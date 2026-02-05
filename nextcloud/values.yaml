@@ -1,11 +1,35 @@
+nextcloud:
+  nextcloud:
+    host: nextcloud.berlin-united.com
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-secret
+      usernameKey: username
+      passwordKey: password
 
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
 
-ingress:
-  enabled: true
+    className: nginx
+    pathType: ImplementationSpecific
+    tls:
+    - hosts:
+      - "nextcloud.berlin-united.com"
+      secretName: tls-cert-nextcloud
 
+  persistence:
+    enabled: true
+    storageClass: local-path
 
-externalDatabase:
-  enabled: true
-  type: postgresql
-  
-
+  externalDatabase:
+    enabled: true
+    type: postgresql
+    host: "nextcloud-postgres-rw.nextcloud.svc.cluster.local:5432"
+    database: nextcloud
+    existingSecret:
+      secretName: nextcloud-postgresql
+      usernameKey: username
+      passwordKey: password
