@@ -1,0 +1,11 @@
+
+
+ingress:
+  enabled: true
+
+
+externalDatabase:
+  enabled: true
+  type: postgresql
+  
+

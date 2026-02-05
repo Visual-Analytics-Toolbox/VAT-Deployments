@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: nextcloud-postgresql
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: my-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+  dataFrom:
+    - extract:
+        key: NextCloudPostgresSecret
+        property: password
+    - extract:
+        key: NextCloudPostgresSecret
+        property: username

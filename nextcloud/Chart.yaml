@@ -1,0 +1,11 @@
+apiVersion: v2
+name: nextcloud
+description: VAT Nextcloud Helm Chart
+type: application
+version: 0.1.0
+appVersion: "0.0.10"
+
+dependencies:
+  - name: nextcloud
+    repository: https://nextcloud.github.io/helm/
+    version: 8.9.0
