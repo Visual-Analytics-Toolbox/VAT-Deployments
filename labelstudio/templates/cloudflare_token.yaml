@@ -6,13 +6,15 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
     deletionPolicy: "Retain"
-  dataFrom:
-  - extract:
-      key: CloudflareToken
-      property: DATA
+  data:
+    - secretKey: DATA # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: CloudflareToken # Key of the variable on Gitlab
 {{ end }}
+
+  

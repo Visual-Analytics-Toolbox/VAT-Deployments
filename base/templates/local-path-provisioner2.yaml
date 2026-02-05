@@ -1,20 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: postgres-operator
+  name: local-path-provisioner2
 spec:
   project: default
   source:
     repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
-    path: postgres-operator
+    path: local-path-provisioner
     targetRevision: HEAD
     helm:
-      releaseName: postgres-operator
+      releaseName: local-path-provisioner
   destination:
-    server: https://kubernetes.default.svc
-    namespace: postgres-operator
+    name: hetzner-k8s
+    namespace: local-path-provisioner
   syncPolicy:
     automated: {}
     syncOptions:
     - CreateNamespace=true
-    - ServerSideApply=true

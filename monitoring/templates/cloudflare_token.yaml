@@ -1,3 +1,4 @@
+{{- if not .Values.is_dev }}
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
@@ -5,15 +6,15 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
     deletionPolicy: "Retain"
-  dataFrom:
-  - extract:
-      conversionStrategy: Default
-      decodingStrategy: None
-      key: CloudflareToken
-      metadataPolicy: None
-      property: DATA
+  data:
+    - secretKey: DATA # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: CloudflareToken # Key of the variable on Gitlab
+{{ end }}
+
+  

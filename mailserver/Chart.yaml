@@ -1,0 +1,11 @@
+apiVersion: v2
+name: mailserver
+description: Berlin United mailserver
+type: application
+version: 0.1.0
+appVersion: 1.0.0
+
+dependencies:
+  - name: docker-mailserver
+    repository: https://docker-mailserver.github.io/docker-mailserver-helm
+    version: 5.1.1

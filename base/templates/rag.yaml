@@ -1,20 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: postgres-operator
+  name: rag
 spec:
   project: default
   source:
     repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
-    path: postgres-operator
+    path: rag
     targetRevision: HEAD
     helm:
-      releaseName: postgres-operator
+      releaseName: rag
   destination:
     server: https://kubernetes.default.svc
-    namespace: postgres-operator
+    namespace: rag
   syncPolicy:
     automated: {}
     syncOptions:
     - CreateNamespace=true
-    - ServerSideApply=true

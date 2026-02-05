@@ -1,20 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: postgres-operator
+  name: mailserver
 spec:
   project: default
   source:
     repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
-    path: postgres-operator
+    path: mailserver
     targetRevision: HEAD
     helm:
-      releaseName: postgres-operator
+      releaseName: mailserver
+      valueFiles:
+        - values.yaml
   destination:
-    server: https://kubernetes.default.svc
-    namespace: postgres-operator
+    name: hetzner-k8s
+    namespace: mailserver # has to be there because thats where the base application is
   syncPolicy:
     automated: {}
     syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
+      - CreateNamespace=true
