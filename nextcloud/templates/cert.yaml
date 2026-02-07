@@ -5,7 +5,7 @@ metadata:
   name: certificate-nextcloud
   namespace: {{ .Values.namespace }}
 spec:
-  secretName: tls-cert-bnextcloudog
+  secretName: tls-cert-nextcloud
   duration: 2160h # 90d
   renewBefore: 360h # 15d
   commonName: nextcloud.berlin-united.com

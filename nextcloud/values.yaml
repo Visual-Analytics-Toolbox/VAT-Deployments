@@ -24,6 +24,9 @@ nextcloud:
     enabled: true
     storageClass: local-path
 
+  internalDatabase:
+    enabled: false
+
   externalDatabase:
     enabled: true
     type: postgresql
@@ -33,3 +36,8 @@ nextcloud:
       secretName: nextcloud-postgresql
       usernameKey: username
       passwordKey: password
+
+  redis:
+    enabled: true
+    auth:
+      enabled: false
