@@ -8,4 +8,4 @@ appVersion: 1.0.0
 dependencies:
   - name: keycloakx
     repository: https://codecentric.github.io/helm-charts
-    version: 7.1.5
+    version: 7.1.8
