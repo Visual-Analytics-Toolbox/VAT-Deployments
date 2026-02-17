@@ -86,6 +86,21 @@ spec:
           value: "5432"
         - name: DJANGO_SETTINGS_MODULE
           value: "core.settings.production"
+        - name: OTEL_SERVICE_NAME
+          value: "django-app"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          # Replace 'alloy.monitoring.svc' with your actual Alloy service address
+          value: "http://alloy.alloy.svc.cluster.local:4317"
+        - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
+          value: "true"
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "deployment.environment=production,k8s.pod.name=$(K8S_POD_NAME)"
+        - name: OTEL_PYTHON_CONTEXT
+          value: "contextvars"
+        - name: K8S_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         - name: VAT_KEYCLOAK_SECRET
           valueFrom:
             secretKeyRef:
