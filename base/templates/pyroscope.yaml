@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pyroscope
+  annotations:
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
+    path: pyroscope
+    targetRevision: HEAD
+    helm:
+      releaseName: pyroscope
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pyroscope
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true

@@ -50,6 +50,15 @@ grafana:
       - name: Tempo
         type: tempo
         url: http://tempo.tempo.svc.cluster.local:3200
+        jsonData:
+          tracesToProfiles:
+            datasourceUid: 'Grafana Pyroscope'
+            profileTypeId: 'process_cpu:cpu'
+      - name: Grafana Pyroscope
+        type: grafana-pyroscope-datasource
+        jsonData:
+          minStep: '15s'
+        url: http://pyroscope.pyroscope.svc.cluster.local:4040
 
   assertNoLeakedSecrets: false
   grafana.ini:

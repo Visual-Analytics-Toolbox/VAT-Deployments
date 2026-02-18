@@ -146,6 +146,23 @@ alloy:
           }
         }
 
+        pyroscope.receive_http "default" {
+          http {
+            listen_address = "0.0.0.0"
+            listen_port = 4040
+          }
+          
+          // Forward them to your actual Pyroscope service
+          forward_to = [pyroscope.write.backend.receiver]
+        }
+
+        // 2. Write to the Pyroscope service you just installed
+        pyroscope.write "backend" {
+          endpoint {
+            url = "http://pyroscope.pyroscope.svc.cluster.local:4040"
+          }
+        }
+
 
     securityContext:
       # https://grafana.com/docs/grafana-cloud/send-data/alloy/reference/components/beyla/beyla.ebpf/
@@ -218,6 +235,10 @@ alloy:
         port: 4318
         targetPort: 4318
         protocol: TCP
+      - name: "pyroscope-http"
+        port: 4040
+        targetPort: 4040
+        protocol: "TCP"
 
     # -- Host aliases to add to the Alloy container.
     hostAliases: []

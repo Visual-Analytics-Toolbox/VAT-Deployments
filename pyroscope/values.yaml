@@ -1,0 +1,21 @@
+pyroscope:
+  # disable its own alloy - we have a central alloy deployment
+  alloy:
+    enabled: false
+  minio:
+    enabled: false
+
+
+  pyroscope:
+    replicaCount: 1
+    config: |
+      storage:
+        backend: s3
+        s3:
+          bucket_name: grafana-pyroscope-data
+          endpoint: minio.minio.svc.cluster.local:9000
+          access_key_id: naoth
+          secret_access_key: HAkPYLnAvydQA
+          insecure: true  # Assuming no TLS on internal svc
+          force_path_style: true
+      

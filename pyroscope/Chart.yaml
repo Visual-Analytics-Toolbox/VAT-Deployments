@@ -1,0 +1,12 @@
+apiVersion: v2
+name: alloy
+description: VAT Pyroscope Helm Chart
+type: application
+version: 0.1.0
+appVersion: "0.0.10"
+
+dependencies:
+  - name: pyroscope
+    repository: https://grafana.github.io/helm-charts
+    version: 1.18.1
+
