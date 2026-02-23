@@ -113,6 +113,9 @@ spec:
           mountPath: /mnt/datasets
         - name: videomount
           mountPath: /mnt/videos
+        - name: logmount
+          mountPath: /mnt/logs
+      imagePullSecrets:
       imagePullSecrets:
       - name: github-access
       volumes:
@@ -125,3 +128,6 @@ spec:
       - name: videomount
         hostPath:
           path: /mnt/videos
+      - name: logmount
+        hostPath:
+          path: /mnt/logs2
