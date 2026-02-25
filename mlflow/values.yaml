@@ -15,6 +15,7 @@ mlflow:
     enabled: false
 
   artifactRoot:
+    proxiedArtifactStorage: true
     s3:
       enabled: true
       bucket: mlflow
@@ -26,6 +27,7 @@ mlflow:
         keyOfSecretAccessKey: "accessKeySecret"
 
   extraEnvVars:
-    MLFLOW_S3_ENDPOINT_URL: minio.berlin-united.com
+    MLFLOW_S3_ENDPOINT_URL: https://minio.berlin-united.com
     MLFLOW_SERVER_CORS_ALLOWED_ORIGINS: https://mlflow.berlin-united.com
     MLFLOW_SERVER_ALLOWED_HOSTS: mlflow.berlin-united.com
+    AWS_DEFAULT_REGION: us-east-1
