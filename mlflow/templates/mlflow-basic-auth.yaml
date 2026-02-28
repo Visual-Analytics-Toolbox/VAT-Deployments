@@ -5,13 +5,14 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
     deletionPolicy: "Retain"
-  dataFrom:
-    - extract:
-        key: MlflowBasicAuth
-        property: auth
+  data:
+    - secretKey: auth # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: MLFLOW_BASIC_AUTH # Key of the variable on Gitlab
+{{ end }}
 
