@@ -5,27 +5,28 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
     deletionPolicy: "Retain"
-  dataFrom:
-    - extract:
-        key: KeycloakEnvs
-        property: password
-    - extract:
-        key: KeycloakEnvs
-        property: username
-    - extract:
-        key: KeycloakEnvs
-        property: KC_BOOTSTRAP_ADMIN_USERNAME
-    - extract:
-        key: KeycloakEnvs
-        property: KC_BOOTSTRAP_ADMIN_PASSWORD
-    - extract:
-        key: KeycloakEnvs
-        property: KC_DB_PASSWORD
-    - extract:
-        key: KeycloakEnvs
-        property: KC_DATABASE
+  data:
+    - secretKey: password 
+      remoteRef: 
+        key: KEYCLOAK_PASSWORD
+    - secretKey: username 
+      remoteRef: 
+        key: KEYCLOAK_USERNAME
+    - secretKey: KC_BOOTSTRAP_ADMIN_USERNAME 
+      remoteRef: 
+        key: KC_BOOTSTRAP_ADMIN_USERNAME
+    - secretKey: KC_BOOTSTRAP_ADMIN_PASSWORD 
+      remoteRef: 
+        key: KC_BOOTSTRAP_ADMIN_PASSWORD
+    - secretKey: KC_DB_PASSWORD 
+      remoteRef: 
+        key: KC_DB_PASSWORD
+    - secretKey: KC_DATABASE 
+      remoteRef: 
+        key: KC_DATABASE
+
