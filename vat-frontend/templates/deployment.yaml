@@ -4,6 +4,7 @@ metadata:
   name: vat-frontend
 spec:
   replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: vat-frontend
