@@ -5,15 +5,15 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: my-secret-store
+    name: gitlab-secret-store
   refreshInterval: "1m"
   target:
     creationPolicy: Owner
     deletionPolicy: "Retain"
-  dataFrom:
-    - extract:
-        key: MinioSecretMlflow
-        property: accessKeyID
-    - extract:
-        key: MinioSecretMlflow
-        property: accessKeySecret
+  data:
+    - secretKey: accessKeyID # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: MINIO_PYROSCOPE_USER # Key of the variable on Gitlab
+    - secretKey: accessKeySecret # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: MINIO_PYROSCOPE_PASSWORD # Key of the variable on Gitlab  
