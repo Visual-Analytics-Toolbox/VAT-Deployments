@@ -14,5 +14,3 @@ spec:
     - secretKey: auth # Key given to the secret to be created on the cluster
       remoteRef: 
         key: MLFLOW_BASIC_AUTH # Key of the variable on Gitlab
-{{ end }}
-
