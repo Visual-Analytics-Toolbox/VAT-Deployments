@@ -14,7 +14,7 @@ label-studio:
     image:
       registry: ghcr.io
       repository: visual-analytics-toolbox/vat-labelstudio
-      tag: autologin_vat_instance
+      tag: custom_auth
       
 
     extraEnvironmentVars:
