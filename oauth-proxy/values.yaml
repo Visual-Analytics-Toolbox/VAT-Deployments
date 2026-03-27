@@ -24,11 +24,13 @@ oauth2-proxy:
       email_domains=["*"]
       cookie_domains=[".berlin-united.com"]
       cookie_secure=false
-      scope="openid"
+      scope="openid email profile"
       whitelist_domains=[".berlin-united.com"]
       insecure_oidc_allow_unverified_email="true"
       skip_jwt_bearer_tokens = true
       pass_authorization_header = true
+      pass_user_headers = true
+      set_xauthrequest = true
       pass_basic_auth = false
       skip_auth_strip_headers = false
       extra_jwt_issuers = "https://keycloak.berlin-united.com/auth/realms/berlin-united=oauth2-proxy"
