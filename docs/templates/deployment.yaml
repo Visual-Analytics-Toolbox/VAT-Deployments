@@ -25,7 +25,7 @@ spec:
               path: nginx.conf
       containers:
       - name: nginx
-        image: ghcr.io/visual-analytics-toolbox/mkdocs-nginx:latest
+        image: ghcr.io/visual-analytics-toolbox/vat-docs:latest
         ports:
         - containerPort: 80
 
