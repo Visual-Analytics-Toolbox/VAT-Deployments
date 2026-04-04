@@ -65,6 +65,18 @@ data:
           mp4_max_buffer_size 5m;
           add_header Content-Type "video/mp4";
           add_header Accept-Ranges bytes;
+          add_header 'Access-Control-Allow-Origin' '*';
+          add_header 'Access-Control-Allow-Methods' 'GET';
+
+          if ($request_method = 'OPTIONS') {
+              add_header 'Access-Control-Allow-Origin' '*';
+              add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+              add_header 'Access-Control-Allow-Headers' 'x-berlin-handshake';
+              add_header 'Access-Control-Max-Age' 1728000;
+              add_header 'Content-Type' 'text/plain; charset=utf-8';
+              add_header 'Content-Length' 0;
+              return 204;
+          }
         }
         location ~* \.png$ {
           limit_req zone=global_rate_limit nodelay;
