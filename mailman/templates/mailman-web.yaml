@@ -30,6 +30,8 @@ spec:
               key: "DATABASE_URL"
         - name: MAILMAN_CORE_ENDPOINT
           value: "http://mailman-core:8001"
+        - name: HYPERKITTY_URL
+          value: http://mailman-web:80//hyperkitty/
         - name: HYPERKITTY_API_KEY
           valueFrom:
             secretKeyRef:
@@ -61,9 +63,9 @@ spec:
               name: postgres-secret
               key: "MAILMAN_ADMIN_USER"
         - name: SMTP_HOST
-          value: "mailserver-docker-mailserver.mailserver.svc.cluster.local"
+          value: "mail.berlin-united.com"
         - name: SMTP_PORT
-          value: "587"  # Or 25 if you are staying internal and don't require STARTTLS
+          value: "587"
         - name: SMTP_HOST_USER
           value: "stella@berlin-united.com" # A valid account on your DMS
         - name: SMTP_HOST_PASSWORD
@@ -71,8 +73,8 @@ spec:
             secretKeyRef:
               name: postgres-secret
               key: "SMTP_HOST_PASSWORD"
-        - name: SMTP_SECURE_MODE
-          value: "starttls"
+        - name: SMTP_USE_TLS
+          value: "true"
         - name: DEFAULT_FROM_EMAIL
           value: "stella@berlin-united.com"
         ports:
@@ -83,7 +85,13 @@ spec:
         volumeMounts:
         - name: web-data
           mountPath: /opt/mailman-web-data
+        - name: settings-volume
+          mountPath: /opt/mailman-web/settings.py
+          subPath: settings.py
       volumes:
       - name: web-data
         persistentVolumeClaim:
           claimName: mailman-web-pvc
+      - name: settings-volume
+        configMap:
+          name: mailman-settings-override
