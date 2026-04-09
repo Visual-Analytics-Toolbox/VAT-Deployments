@@ -30,6 +30,23 @@ spec:
             secretKeyRef:
               name: postgres-secret
               key: "HYPERKITTY_API_KEY"
+        - name: HYPERKITTY_URL
+          value: http://mailman-web:80//hyperkitty/
+        - name: SMTP_HOST
+          value: "mail.berlin-united.com"
+        - name: SMTP_PORT
+          value: "587"  # Or 25 if you are staying internal and don't require STARTTLS
+        - name: SMTP_HOST_USER
+          value: "stella@berlin-united.com" # A valid account on your DMS
+        - name: SMTP_HOST_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: "SMTP_HOST_PASSWORD"
+        - name: MTA
+          value: "postfix"
+        - name: SMTP_SECURE_MODE
+          value: "starttls"
         ports:
         - containerPort: 8001
           name: api
