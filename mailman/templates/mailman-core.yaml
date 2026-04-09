@@ -47,6 +47,8 @@ spec:
           value: "postfix"
         - name: SMTP_SECURE_MODE
           value: "starttls"
+        - name: MM_HOSTNAME
+          value: "lists.berlin-united.com"
         ports:
         - containerPort: 8001
           name: api
@@ -55,7 +57,13 @@ spec:
         volumeMounts:
         - name: core-data
           mountPath: /opt/mailman/
+        - name: config-volume
+          mountPath: /opt/mailman/mailman-extra.cfg
+          subPath: mailman.cfg
       volumes:
       - name: core-data
         persistentVolumeClaim:
           claimName: mailman-core-pvc
+      - name: config-volume
+        configMap:
+          name: mailman-core-config

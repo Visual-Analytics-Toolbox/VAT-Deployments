@@ -7,10 +7,18 @@ docker-mailserver:
 
   configMaps:
     # This creates the postfix-main.cf override
-    postfix-main.cf: |
-      transport_maps = pcre:/tmp/docker-mailserver/postfix-transport.pcre
-      relay_domains = lists.berlin-united.com
-
-    # This creates the actual routing rule
-    postfix-transport.pcre: |
-      /^.*@lists\.berlin-united\.com$/    lmtp:mailman-core-service:8024
+    postfix-main.cf: 
+      create: true
+      path: postfix-main.cf
+      data: |
+        mydestination = $myhostname, localhost.$mydomain, localhost
+        transport_maps = pcre:/tmp/docker-mailserver/postfix-transport.pcre
+        relay_domains = lists.berlin-united.com
+        local_recipient_maps =
+    
+    postfix-transport.pcre: 
+      create: true
+      path: postfix-transport.pcre
+      data: |
+        # This creates the actual routing rule
+        /^.*@lists\.berlin-united\.com$/    lmtp:[mailman-core.mailman.svc.cluster.local]:8024
