@@ -1,0 +1,23 @@
+# dummy ingress so thunderbird does not freak out about k8s fake cert
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mailserver-web-dummy
+  namespace: {{ .Values.namespace }}
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - mail.berlin-united.com
+    secretName: tls-cert-mailserver
+  rules:
+  - host: mail.berlin-united.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mailserver-docker-mailserver
+            port:
+              number: 80 # Or any port; it just needs to exist to anchor the TLS cert
