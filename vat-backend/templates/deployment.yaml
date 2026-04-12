@@ -46,6 +46,11 @@ spec:
             secretKeyRef:
               name: keycloak-secret
               key: "password"
+        - name: LABELSTUDIO_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: labelstudio-key
+              key: labelstudio_key
       containers:
       - name: backend
         image: {{ .Values.image.name }}:{{ .Values.image.tag }}

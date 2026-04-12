@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: labelstudio-key
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: gitlab-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+  data:
+    - secretKey: labelstudio_key
+      remoteRef: 
+        key: LABELSTUDIO_API_KEY
