@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "docs.berlin-united.com"
+    - host: "docs-staging.berlin-united.com"
       http:
         paths:
           - path: /
@@ -22,5 +22,5 @@ spec:
                   number: 80
   tls:
   - hosts:
-    - "docs.berlin-united.com"
+    - "docs-staging.berlin-united.com"
     secretName: tls-cert-docs

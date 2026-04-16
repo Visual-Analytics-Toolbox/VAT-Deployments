@@ -14,7 +14,7 @@ spec:
     solvers:
     - selector:
         dnsNames:
-        - 'docs.berlin-united.com'
+        - 'docs-staging.berlin-united.com'
       dns01:
         cloudflare:
           apiTokenSecretRef:
