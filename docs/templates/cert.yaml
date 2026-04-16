@@ -7,9 +7,9 @@ spec:
   secretName: tls-cert-docs
   duration: 2160h # 90d
   renewBefore: 360h # 15d
-  commonName: docs.berlin-united.com
+  commonName: docs-staging.berlin-united.com
   dnsNames:
-  - docs.berlin-united.com
+  - docs-staging.berlin-united.com
   issuerRef:
     name: letsencrypt-prod-docs
     kind: Issuer
