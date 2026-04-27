@@ -1,0 +1,11 @@
+apiVersion: v2
+name:  mattermost
+description: Berlin United Mattermost Instance
+type: application
+version: 0.1.0
+appVersion: 1.0.0
+
+dependencies:
+  - name: mattermost-operator
+    repository: https://helm.mattermost.com
+    version: 1.0.5
