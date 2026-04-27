@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: mattermost-minio
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: gitlab-secret-store
+  refreshInterval: "1m"
+  target:
+    creationPolicy: Owner
+    deletionPolicy: "Retain"
+  data:
+    - secretKey: accesskey # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: MINIO_MATTERMOST_USER # Key of the variable on Gitlab
+    - secretKey: secretkey # Key given to the secret to be created on the cluster
+      remoteRef: 
+        key: MINIO_MATTERMOST_PASSWORD # Key of the variable on Gitlab  

@@ -1,0 +1,20 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mattermost-postgres
+spec:
+  instances: 1
+
+  storage:
+    # does not really matter since our default storage class cant limit it
+    size: 6Gi
+
+  bootstrap:
+    initdb:
+      database: mattermost
+      owner: mattermost
+      secret:
+        name: mattermost-postgresql
+
+  monitoring:
+    enablePodMonitor: false
