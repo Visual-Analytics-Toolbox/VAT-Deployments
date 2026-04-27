@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio2
+spec:
+  project: default
+  source:
+    repoURL: 'git@github.com:Visual-Analytics-Toolbox/VAT-Deployments.git'
+    path: minio
+    targetRevision: HEAD
+    helm:
+      releaseName: minio
+      valueFiles:
+        - values2.yaml
+  destination:
+    name: hetzner-k8s
+    namespace: minio
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
