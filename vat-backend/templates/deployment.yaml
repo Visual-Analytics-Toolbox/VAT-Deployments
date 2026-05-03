@@ -150,4 +150,4 @@ spec:
           path: /mnt/videos
       - name: logmount
         hostPath:
-          path: /mnt/logs2
+          path: /mnt/repl
